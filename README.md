@@ -1,36 +1,78 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Bazar HortSoy 🌱
 
-## Getting Started
+Um portal de vendas exclusivo para colaboradores da HortSoy, desenvolvido com arquitetura robusta e metodologias de Clean Code.
 
-First, run the development server:
+Com o encerramento das atividades de uma de nossas unidades, estamos disponibilizando móveis, equipamentos e eletrônicos em excelentes condições com preços subsidiados para a equipe.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Tecnologias Utilizadas (Specialist Setup)
+
+Este projeto foi construído focando na máxima performance, escalabilidade e na melhor UX (User Experience) e UI (User Interface) possíveis.
+
+### Frontend
+- **[Next.js 15 (App Router)](https://nextjs.org/)**: Renderização híbrida e rotas otimizadas.
+- **[React 19](https://react.dev/)**: Componentização e Server Actions.
+- **[TypeScript](https://www.typescriptlang.org/)**: Tipagem estática e segurança global no código.
+- **[Tailwind CSS v4](https://tailwindcss.com/)**: Estilização Utility-First com tema customizado e variáveis CSS dinâmicas (Suporte completo a *Light/Dark Mode* via propriedades globais).
+- **[Framer Motion](https://www.framer.com/motion/)**: Animações imersivas, *hover states* complexos e transições de entrada em viewport.
+- **[Lucide React](https://lucide.dev/)**: Ícones leves e customizáveis.
+- **[Sonner](https://sonner.emilkowal.ski/)**: Sistema moderno de *Toasts* para notificações estéticas.
+### Backend & Integrations
+- **[Supabase](https://supabase.com/)**: Instância do *client* isolada pronta para conexão com o Postgres em Tempo Real (`src/lib/supabase.ts`).
+- **Paginação de Dados**: Botões dinâmicos de listagem `Mostrar mais 20` e `Mostrar tudo` integrados com facilidade ao front-end para evitar sobrecarga.
+
+## 📁 Estrutura de Arquivos Otimizada (Clean Architecture)
+
+Foi implementada uma refatoração robusta visando a separação de responsabilidades e *Clean Code*:
+```text
+📦 src/
+ ┣ 📂 app/                  # Rotas principais e API Handlers
+ ┃ ┣ 📜 globals.css         # Variáveis e CSS nativo Global
+ ┃ ┣ 📜 layout.tsx          # RootLayout, Headers e Modais
+ ┃ ┗ 📜 page.tsx            # View de Catálogo e Landing Page
+ ┣ 📂 data/                 # Fontes externas ou Mock databases
+ ┃ ┗ 📜 inventory.ts        # Gerador algorítmico do catálogo
+ ┗ 📂 lib/                  # Drivers e Clients Internos
+   ┗ 📜 supabase.ts         # Supabase Connection Provider
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🔐 Variáveis de Ambiente
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Crie um arquivo `.env` ou `.env.local` na raiz contendo:
+```env
+NEXT_PUBLIC_SUPABASE_URL="https://substituir.supabase.co"
+NEXT_PUBLIC_SUPABASE_ANON_KEY="substituir-pela-sua-chave-anon"
+```
+*(Durante o desenvolvimento inicial rodará sem problemas mesmo utilizando os placeholders internos configurados.)*
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## 📦 Como rodar localmente
 
-## Learn More
+Clone o repositório e instale as dependências rigorosamente:
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm install
+npm run dev
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Abra [http://localhost:3000](http://localhost:3000) no seu navegador para ver o catálogo renderizado e a disposição dos lotes.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 💡 Estratégia do Banco de Dados (Supabase Migration)
 
-## Deploy on Vercel
+Para subir seus dados reais ao Supabase futuramente, basta executar o seguinte schema no editor SQL:
+```sql
+create table if not exists inventory (
+  id bigint primary key generated always as identity,
+  name text not null,
+  brand text not null,
+  category text not null,
+  condition text not null,
+  price numeric not null,
+  original_price numeric,
+  image text,
+  description text,
+  stock int default 1
+);
+```
+O client `supabase.ts` já exporta o tipo `Product` perfeitamente alinhado a essa modelagem, mantendo a integridade do seu Typescript de ponta a ponta.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Desenvolvido com padrão de excelência corporativa 💚
