@@ -83,7 +83,7 @@ export default function Home() {
       toast.success(`Interesse registrado`, { description: name });
       
       // WhatsApp Redirect
-      const phoneNumber = "5534999119988";
+      const phoneNumber = "553498357625";
       const message = `Olá tenho interesse no produto ${name} pelo valor ${formatPrice(price)}`;
       const encodedMessage = encodeURIComponent(message);
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
