@@ -102,96 +102,12 @@ export default function Home() {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] bg-[size:3rem_3rem] md:bg-[size:4rem_4rem] [mask-image:linear-gradient(to_bottom,white,transparent_70%)] opacity-30" />
       </div>
 
-      {/* ════════════════════════════════════════════════ */}
-      {/* HERO SECTION                                    */}
-      {/* ════════════════════════════════════════════════ */}
-      <section className="relative z-10 w-full max-w-7xl mx-auto pt-6 sm:pt-8 md:pt-12 lg:pt-16 pb-10 sm:pb-12 md:pb-16 lg:pb-20 px-4 sm:px-6 lg:px-10">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-center">
-          
-          {/* Hero Text */}
-          <motion.div 
-            initial={{ opacity: 0, x: -30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.7, ease: "easeOut" }}
-            className="flex flex-col items-center lg:items-start text-center lg:text-left"
-          >
-            <div className="inline-flex items-center rounded-full border border-[var(--color-primary)]/20 bg-white/70 backdrop-blur-md px-3 py-1.5 sm:px-4 sm:py-2 text-[10px] sm:text-xs font-semibold text-[var(--color-primary)] mb-4 sm:mb-6 shadow-sm">
-              <ShieldCheck className="mr-1.5 sm:mr-2 h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2.5} />
-              <span className="tracking-wide uppercase">Acesso Restrito a Colaboradores</span>
-            </div>
 
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 mb-4 sm:mb-6 leading-[1.1]">
-              Oportunidades <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-primary)] to-[#0c7a00]">
-                Exclusivas HortSoy
-              </span>
-            </h1>
-            
-            <p className="max-w-lg text-sm sm:text-base md:text-lg text-slate-600 mb-6 sm:mb-8 md:mb-10 leading-relaxed font-medium">
-              Renovação do nosso parque tecnológico e mobiliário. Equipamentos criteriosamente selecionados e revisados, com valores totalmente subsidiados para nosso time interno.
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto">
-              <a href="#produtos" className="group inline-flex justify-center items-center px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold rounded-2xl text-white bg-[var(--color-primary)] hover:bg-[var(--color-primary-hover)] shadow-xl shadow-[var(--color-primary)]/20 transition-all duration-300 hover:-translate-y-1">
-                Acessar Catálogo
-                <MousePointerClick className="ml-2 sm:ml-3 h-4 w-4 sm:h-5 sm:w-5 transition-transform group-hover:translate-x-1 group-hover:-translate-y-1" />
-              </a>
-              <a href="#sobre" className="inline-flex justify-center items-center px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base font-bold rounded-2xl text-slate-700 bg-white hover:bg-slate-50 border-2 border-slate-200 transition-all duration-300 hover:-translate-y-1 shadow-sm hover:shadow-md">
-                <Info className="mr-2 sm:mr-3 h-4 w-4 sm:h-5 sm:w-5 text-slate-400" />
-                Regras do Marketplace
-              </a>
-            </div>
-          </motion.div>
-
-          {/* Hero Visual — Desktop only */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 30 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, type: "spring" }}
-            className="relative hidden lg:block h-[500px] xl:h-[560px] w-full"
-          >
-            <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[420px] xl:w-[480px] h-[420px] xl:h-[480px]">
-              <div className="absolute inset-0 bg-white shadow-2xl shadow-slate-200/50 rounded-3xl -rotate-6 hover:rotate-0 transition-transform duration-700 z-10 border border-slate-100 overflow-hidden">
-                <div className="w-full h-44 bg-[#075000]/10 relative">
-                  <Image src="/hero_bg.png" alt="Abstrato HortSoy" fill style={{ objectFit: 'cover' }} />
-                </div>
-                <div className="p-6 xl:p-8">
-                  <div className="h-3 w-1/3 bg-emerald-100 rounded mb-3" />
-                  <div className="h-5 w-3/4 bg-slate-200 rounded mb-6" />
-                  <div className="flex justify-between items-end">
-                    <div>
-                      <div className="h-2.5 w-14 bg-slate-100 rounded mb-2" />
-                      <div className="h-7 w-20 bg-slate-200 rounded" />
-                    </div>
-                    <div className="h-10 w-28 bg-[var(--color-primary)]/10 rounded-xl" />
-                  </div>
-                </div>
-              </div>
-              
-              <div className="absolute inset-0 bg-white shadow-xl shadow-slate-200/50 rounded-3xl rotate-12 hover:rotate-6 transition-transform duration-700 z-0 border border-slate-100/50 -right-16 top-16 scale-90" />
-              
-              {/* Floating badge */}
-              <motion.div 
-                animate={{ y: [0, -10, 0] }}
-                transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                className="absolute -left-8 top-16 z-20 bg-white px-4 xl:px-6 py-3 xl:py-4 rounded-2xl shadow-xl shadow-slate-200 border border-slate-100 flex items-center gap-3"
-              >
-                <div className="bg-emerald-100 text-emerald-600 p-2.5 rounded-xl"><Tag className="h-5 w-5" /></div>
-                <div>
-                  <p className="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Melhores</p>
-                  <p className="text-xl xl:text-2xl font-black text-slate-800 uppercase">Ofertas</p>
-                </div>
-              </motion.div>
-            </div>
-          </motion.div>
-
-        </div>
-      </section>
 
       {/* ════════════════════════════════════════════════ */}
       {/* CATALOG SECTION                                 */}
       {/* ════════════════════════════════════════════════ */}
-      <section id="produtos" className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-8 md:py-16 scroll-mt-20">
+      <section id="produtos" className="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 pt-12 md:pt-20 pb-8 md:pb-16 scroll-mt-20">
         
         {/* Section Header */}
         <div className="flex flex-col space-y-4 sm:space-y-6 mb-8 md:mb-12">
@@ -413,6 +329,84 @@ export default function Home() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════════════════ */}
+      {/* FAQ SECTION (DÚVIDAS)                           */}
+      {/* ════════════════════════════════════════════════ */}
+      <section id="contato" className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-12 md:py-24 scroll-mt-20">
+        <div className="flex flex-col items-center text-center mb-12 md:mb-16">
+          <h2 className="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-4 tracking-tight">
+            Dúvidas Frequentes
+          </h2>
+          <p className="text-sm sm:text-base text-slate-500 font-medium max-w-2xl">
+            Tudo o que você precisa saber sobre o funcionamento do nosso Marketplace interno.
+          </p>
+        </div>
+
+        <div className="max-w-3xl mx-auto space-y-4">
+          {[
+            {
+              q: "Quem pode comprar no Marketplace?",
+              a: "O acesso e a compra são exclusivos para colaboradores ativos da HortSoy. Não é permitida a venda para pessoas externas."
+            },
+            {
+              q: "Os produtos possuem garantia?",
+              a: "Os produtos são vendidos no estado em que se encontram. Equipamentos eletrônicos são testados antes da entrega, mas por serem itens de desuso corporativo, não possuem garantia estendida."
+            },
+            {
+              q: "Como é definido o valor dos produtos?",
+              a: "Os valores são calculados com base na depreciação contábil e estado de conservação, sempre aplicando um subsídio para garantir que o preço seja inferior ao de mercado."
+            },
+            {
+              q: "Posso parcelar a compra?",
+              a: "As condições de parcelamento devem ser consultadas diretamente com o RH no momento da formalização da reserva. Geralmente, aceitamos PIX à vista ou desconto em folha."
+            },
+            {
+              q: "Onde retiro meu produto?",
+              a: "A retirada deve ser feita na sede da unidade especificada no momento do contato do RH, após a confirmação do pagamento e assinatura do termo de responsabilidade."
+            }
+          ].map((item, idx) => (
+            <div 
+              key={idx} 
+              className="group bg-white rounded-2xl border border-slate-200/60 overflow-hidden hover:border-[var(--color-primary)]/30 transition-all duration-300"
+            >
+              <details className="w-full">
+                <summary className="flex items-center justify-between p-5 md:p-6 cursor-pointer list-none">
+                  <span className="text-sm md:text-base font-bold text-slate-800 group-hover:text-[var(--color-primary)] transition-colors">
+                    {item.q}
+                  </span>
+                  <div className="bg-slate-50 p-2 rounded-lg group-hover:bg-[var(--color-primary-light)] transition-colors">
+                    <svg className="w-4 h-4 text-slate-400 group-hover:text-[var(--color-primary)] transition-transform duration-300 transform group-open:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                  </div>
+                </summary>
+                <div className="px-5 md:px-6 pb-6 text-sm md:text-base text-slate-500 font-medium leading-relaxed border-t border-slate-50 pt-4">
+                  {item.a}
+                </div>
+              </details>
+            </div>
+          ))}
+        </div>
+
+        {/* Support CTA */}
+        <div className="mt-16 md:mt-24 bg-[var(--color-primary)] rounded-[2.5rem] p-8 md:p-12 text-center text-white relative overflow-hidden shadow-2xl shadow-[var(--color-primary)]/20">
+          <div className="absolute top-0 right-0 w-64 h-64 bg-white/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
+          <div className="relative z-10">
+            <h3 className="text-2xl md:text-3xl font-black mb-4">Ainda tem alguma dúvida?</h3>
+            <p className="text-white/80 font-medium mb-8 max-w-xl mx-auto">
+              Nossa equipe administrativa está pronta para te ajudar com qualquer questão sobre o repasse de ativos.
+            </p>
+            <a 
+              href="https://wa.me/553498357625" 
+              target="_blank"
+              className="inline-flex items-center gap-2 px-8 py-4 bg-white text-[var(--color-primary)] font-black rounded-2xl hover:bg-slate-50 transition-all duration-300 shadow-xl"
+            >
+              Falar com Suporte
+            </a>
           </div>
         </div>
       </section>
