@@ -1,6 +1,6 @@
 <div align="center">
 
-# Bazar HortSoy 🌱
+# HortSoy Marketplace 🌱
 
 **Portal Corporativo de Liquidação e Repasse de Ativos**
 
