@@ -27,13 +27,13 @@
 - [Performance e Paginação](#-performance-e-paginação)
 - [Instalação](#-instalação)
 - [Scripts Disponíveis](#-scripts-disponíveis)
-- [Licença](#-licença)
+- [Licença & Propriedade](#-licença--propriedade)
 
 ---
 
 ## 🎯 Sobre o Projeto
 
-O **Bazar HortSoy** é um portal de vendas restrito e exclusivo para colaboradores. Desenvolvido para gerenciar a liquidação de ativos de unidades desativadas, a plataforma disponibiliza móveis, equipamentos e eletrônicos corporativos em excelentes condições com preços subsidiados para a equipe. 
+O **Bazar HortSoy** é um portal de vendas restrito e exclusivo para colaboradores. Desenvolvido por **Christyan Silva** para gerenciar a liquidação de ativos de unidades desativadas, a plataforma disponibiliza móveis, equipamentos e eletrônicos corporativos em excelentes condições com preços subsidiados para a equipe. 
 
 O projeto foi construído sob metodologias de *Clean Code* e focado na máxima performance, escalabilidade e usabilidade.
 
@@ -205,6 +205,10 @@ Para manter a integridade e segurança do portal, o código deve seguir os segui
 
 ---
 
-## 📄 Licença
+---
 
-Projeto corporativo privado — © 2026 HortSoy. Todos os direitos reservados.
+### 📜 Licença & Propriedade
+
+© 2026 **HortSoy Marketplace**.
+Propriedade Intelectual Privada. Todos os direitos reservados.
+Desenvolvido com excelência por [**Christyan Silva**](https://github.com/Christyan95).
