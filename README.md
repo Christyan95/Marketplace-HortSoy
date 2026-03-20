@@ -39,11 +39,12 @@ O projeto foi construído sob metodologias de *Clean Code* e focado na máxima p
 ### Destaques
 
 - 🔒 **Acesso Restrito** — Arquitetura preparada para ecossistema corporativo interno.
-- ⚡ **Alta Performance** — App Router e Server Actions com Next.js 15.
+- ⚡ **Alta Performance** — App Router e Server Components (Suspense & Streaming) com Next.js 16.
 - 🎨 **Design Adaptável** — Suporte nativo e fluido a *Light/Dark Mode* via propriedades globais (Tailwind v4).
-- 🗄️ **BaaS Integrado** — Conexão *Realtime* preparada com Supabase e PostgreSQL.
+- 🗄️ **Prisma ORM** — Conexão direta via PostgreSQL com tipagem estática rigorosa.
 - ✨ **Feedback Visual** — Micro-interações com Framer Motion e sistema de notificações via Sonner.
 - 📱 **Mobile-First** — Catálogo altamente responsivo para navegação em qualquer dispositivo.
+- 📄 **Documentação Completa** — Guia de arquitetura e padrões registrados diretamente neste README.
 
 ---
 
@@ -138,7 +139,7 @@ create policy "Allow public read-only access" on inventory for select using (tru
 
 ```
 
-> **Nota Técnica:** O client `src/lib/supabase.ts` já exporta a interface `Product` perfeitamente alinhada a esta modelagem, mantendo a integridade do TypeScript de ponta a ponta.
+> **Nota Técnica:** O client `src/lib/db.ts` utiliza o Prisma Client gerado para interações seguras e eficientes, mantendo a integridade do TypeScript de ponta a ponta.
 
 ---
 
@@ -170,11 +171,18 @@ Para garantir fluidez na navegação:
 
 ### Variáveis de Ambiente
 
-Crie um arquivo `.env` na raiz do projeto com suas credenciais do Supabase:
+Renomeie o arquivo `.env.example` para `.env` e preencha as variáveis necessárias:
 
 ```env
+# Conexão direta com PostgreSQL (Recomendado)
+DATABASE_URL="postgresql://user:password@localhost:5432/hortsoy"
+
+# Supabase (Legado/Fallback)
 NEXT_PUBLIC_SUPABASE_URL="https://seu-projeto.supabase.co"
 NEXT_PUBLIC_SUPABASE_ANON_KEY="sua-chave-anon"
+
+# Configurações do App
+USE_PRISMA="true" 
 ```
 
 ### Setup Local

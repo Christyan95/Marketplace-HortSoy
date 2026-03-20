@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model AVALIAR {
+  id       Int        @id @default(autoincrement())
+  FUNC_AVA String?
+  LAT1_AVA String?
+  LAT2_AVA String?
+  LAT3_AVA String?
+  STA1_AVA Int?       @default(0)
+  STA2_AVA Int?       @default(0)
+  STA3_AVA Int?       @default(0)
+  CATE_AVA String?
+  GEST_AVA String?
+  STAG_AVA Int?       @default(0)
+  STAF_AVA Int?       @default(0)
+  NOTA_AVA NOTA_AVA[]
+}
+
+model NOTA_AVA {
+  id       Int       @id @default(autoincrement())
+  ID_AVA   Int?
+  ID_PERG  Int?
+  LATR_AVA String?
+  NOTA_NOT Int?      @default(0)
+  JUST_NOT String?
+  DTA_NOT  DateTime? @default(now()) @db.Timestamptz(6)
+  AVALIAR  AVALIAR?  @relation(fields: [ID_AVA], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  PERG_AVA PERG_AVA? @relation(fields: [ID_PERG], references: [id], onDelete: NoAction, onUpdate: NoAction)
+
+  @@unique([ID_AVA, ID_PERG, LATR_AVA])
+}
+
+model PERG_AVA {
+  id        Int        @id @default(autoincrement())
+  ANOE_PERG Int?       @default(0)
+  PERG_PERG String?
+  PERF_PERG String?
+  CATE_PERG String?
+  NOTA_AVA  NOTA_AVA[]
+}
+
+model SITE_CONT {
+  UUID_CONT String   @id
+  NOME_CONT String
+  MAIL_CONT String
+  EMPR_CONT String?
+  MENS_CONT String
+  CREA_CONT DateTime @default(now())
+  TIME_CONT DateTime
+  IP_CONT   String?
+  UA_CONT   String?
+
+  @@index([MAIL_CONT], map: "idx_site_cont_mail")
+}
+
+model INVE_HORT {
+  IDEN_ITEM Int       @id @default(autoincrement())
+  NAME_ITEM String    @db.VarChar(255)
+  BRAN_NAME String    @db.VarChar(100)
+  CATE_NAME String    @db.VarChar(100)
+  COND_TYPE String    @db.VarChar(50)
+  VALU_PRIC Decimal   @db.Decimal(12, 2)
+  ORIG_PRIC Decimal?  @db.Decimal(12, 2)
+  IMAG_URLS String?
+  DESC_TEXT String?
+  STOC_AMOU Int?      @default(1)
+  DATE_CREA DateTime? @default(now()) @db.Timestamp(6)
+  DATE_UPDA DateTime? @default(now()) @db.Timestamp(6)
+
+  @@index([CATE_NAME], map: "IDX_CATE_HORT")
+  @@index([NAME_ITEM], map: "IDX_NAME_HORT")
+}
