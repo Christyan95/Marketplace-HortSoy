@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
 }
 
@@ -7,57 +7,20 @@ datasource db {
   provider = "postgresql"
 }
 
-model AVALIAR {
-  id       Int        @id @default(autoincrement())
-  FUNC_AVA String?
-  LAT1_AVA String?
-  LAT2_AVA String?
-  LAT3_AVA String?
-  STA1_AVA Int?       @default(0)
-  STA2_AVA Int?       @default(0)
-  STA3_AVA Int?       @default(0)
-  CATE_AVA String?
-  GEST_AVA String?
-  STAG_AVA Int?       @default(0)
-  STAF_AVA Int?       @default(0)
-  NOTA_AVA NOTA_AVA[]
-}
+/// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
+model CTRL_RSET {
+  UUID_RSET String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  PHON_RSET String    @db.VarChar(20)
+  USER_RSET String    @db.VarChar(150)
+  CODE_RSET String    @db.VarChar(6)
+  STAT_RSET String    @default("PENDENTE") @db.VarChar(20)
+  FAIL_RSET Int       @default(0)
+  EXPI_RSET DateTime  @db.Timestamptz(6)
+  CREA_RSET DateTime? @default(now()) @db.Timestamptz(6)
+  UPDT_RSET DateTime? @default(now()) @db.Timestamptz(6)
 
-model NOTA_AVA {
-  id       Int       @id @default(autoincrement())
-  ID_AVA   Int?
-  ID_PERG  Int?
-  LATR_AVA String?
-  NOTA_NOT Int?      @default(0)
-  JUST_NOT String?
-  DTA_NOT  DateTime? @default(now()) @db.Timestamptz(6)
-  AVALIAR  AVALIAR?  @relation(fields: [ID_AVA], references: [id], onDelete: NoAction, onUpdate: NoAction)
-  PERG_AVA PERG_AVA? @relation(fields: [ID_PERG], references: [id], onDelete: NoAction, onUpdate: NoAction)
-
-  @@unique([ID_AVA, ID_PERG, LATR_AVA])
-}
-
-model PERG_AVA {
-  id        Int        @id @default(autoincrement())
-  ANOE_PERG Int?       @default(0)
-  PERG_PERG String?
-  PERF_PERG String?
-  CATE_PERG String?
-  NOTA_AVA  NOTA_AVA[]
-}
-
-model SITE_CONT {
-  UUID_CONT String   @id
-  NOME_CONT String
-  MAIL_CONT String
-  EMPR_CONT String?
-  MENS_CONT String
-  CREA_CONT DateTime @default(now())
-  TIME_CONT DateTime
-  IP_CONT   String?
-  UA_CONT   String?
-
-  @@index([MAIL_CONT], map: "idx_site_cont_mail")
+  @@index([PHON_RSET], map: "idx_ctrl_rset_phone")
+  @@index([STAT_RSET], map: "idx_ctrl_rset_status")
 }
 
 model INVE_HORT {
