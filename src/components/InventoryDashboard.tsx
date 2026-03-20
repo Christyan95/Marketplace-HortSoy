@@ -59,7 +59,7 @@ export const InventoryDashboard = ({ initialInventory }: InventoryDashboardProps
       toast.success(`Interesse registrado`, { description: name });
 
       // WhatsApp Redirect
-      const phoneNumber = "553498357625";
+      const phoneNumber = process.env.NEXT_PUBLIC_SUPPORT_WHATSAPP || "553498357625";
       const message = `Olá tenho interesse no produto ${name} pelo valor ${formatPrice(price)}`;
       const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
       window.open(whatsappUrl, '_blank');

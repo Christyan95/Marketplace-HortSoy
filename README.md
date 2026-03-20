@@ -8,7 +8,8 @@
 [![React](https://img.shields.io/badge/React-19.0-61DAFB?logo=react)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-v4-06B6D4?logo=tailwindcss)](https://tailwindcss.com/)
-[![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?logo=supabase)](https://supabase.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+[![Prisma](https://img.shields.io/badge/Prisma-ORM-2D3748?logo=prisma)](https://www.prisma.io/)
 [![License](https://img.shields.io/badge/License-Private-red)]()
 
 </div>
@@ -21,7 +22,7 @@
 - [Tecnologias](#-tecnologias)
 - [Arquitetura](#-arquitetura)
 - [Estrutura de Arquivos](#-estrutura-de-arquivos)
-- [Modelagem de Dados (Supabase)](#-modelagem-de-dados-supabase)
+- [Modelagem de Dados](#-modelagem-de-dados)
 - [Design e UI/UX](#-design-e-uiux)
 - [Performance e Paginação](#-performance-e-paginação)
 - [Instalação](#-instalação)
@@ -68,7 +69,7 @@ O projeto foi construído sob metodologias de *Clean Code* e focado na máxima p
 ### Backend e Integrações
 | Tecnologia | Uso |
 |---|---|
-| [Supabase](https://supabase.com/) | Backend-as-a-Service (BaaS) integrado |
+| [Prisma ORM](https://www.prisma.io/) | ORM de alta performance para Node/TypeScript |
 | [PostgreSQL](https://www.postgresql.org/) | Banco de dados relacional para persistência de estoque e catálogo |
 
 ---
@@ -79,9 +80,8 @@ O projeto foi construído sob metodologias de *Clean Code* e focado na máxima p
 Browser Request → Next.js App Router (Layout & Configs)
     → /app/page.tsx (View de Catálogo)
         → Client Components (Framer Motion, Sonner Toasts)
-        → Data Fetching (Supabase Client)
-            → PostgreSQL Database (Realtime Sync)
-
+        → Data Fetching (Prisma / PostgreSQL Adapter)
+            → PostgreSQL Database (Direct Connection)
 ```
 
 ### Padrões Implementados
@@ -104,42 +104,27 @@ Browser Request → Next.js App Router (Layout & Configs)
 │   │   └── page.tsx       # View de Catálogo principal e Landing Page
 │   │
 │   └── 📂 lib/            # Drivers e Clients Internos
-│       └── supabase.ts    # Instância do Supabase Connection Provider
+│       └── db.ts          # Instância do Prisma Connection Provider & Adapter
+│       └── products.ts    # Camada de Acesso a Dados (DAL)
 │
+├── prisma/                # Schema e Migrações do Prisma
 ├── tsconfig.json          # Configuração TypeScript em strict mode
 ├── next.config.ts         # Configurações de build do Next.js
 ├── package.json           # Dependências e scripts
 └── .gitignore             # Arquivos ignorados pelo Git
-
 ```
 
 ---
 
-## 🗄️ Modelagem de Dados (Supabase)
+## 🗄️ Modelagem de Dados
 
-Para provisionar o banco de dados relacional no Supabase, execute a seguinte migração (Schema) no editor SQL do painel administrativo:
+O projeto utiliza **Prisma ORM** com nomes de tabelas e colunas padronizados em `XXXX_YYYY`. O script de inicialização completo está disponível em [setup_database.sql](file:///z:/PROGRAMA%C3%87%C3%83O/Marketplace-HortSoy/setup_database.sql).
 
-```sql
-create table if not exists inventory (
-  id bigint primary key generated always as identity,
-  name text not null,
-  brand text not null,
-  category text not null,
-  condition text not null,
-  price numeric not null,
-  original_price numeric,
-  image text,
-  description text,
-  stock int default 1
-);
+### Tabelas Principais
+- `INVE_HORT`: Catálogo de inventário.
+- `CTRL_RSET`: Controle de segurança para reset e tokens (OTP).
 
--- Habilitar acesso público para leitura
-alter table inventory enable row level security;
-create policy "Allow public read-only access" on inventory for select using (true);
-
-```
-
-> **Nota Técnica:** O client `src/lib/db.ts` utiliza o Prisma Client gerado para interações seguras e eficientes, mantendo a integridade do TypeScript de ponta a ponta.
+> **Segurança Senior Master:** Todas as interações com o banco são tipadas e higienizadas pelo Prisma. O client em `src/lib/db.ts` utiliza um driver adapter para máxima performance e compatibilidade com o Next.js.
 
 ---
 
@@ -174,15 +159,13 @@ Para garantir fluidez na navegação:
 Renomeie o arquivo `.env.example` para `.env` e preencha as variáveis necessárias:
 
 ```env
-# Conexão direta com PostgreSQL (Recomendado)
+# Conexão direta com PostgreSQL
 DATABASE_URL="postgresql://user:password@localhost:5432/hortsoy"
-
-# Supabase (Legado/Fallback)
-NEXT_PUBLIC_SUPABASE_URL="https://seu-projeto.supabase.co"
-NEXT_PUBLIC_SUPABASE_ANON_KEY="sua-chave-anon"
 
 # Configurações do App
 USE_PRISMA="true" 
+NEXT_PUBLIC_SUPPORT_WHATSAPP="553498357625"
+NEXT_PUBLIC_SUPPORT_TEXT="Olá, gostaria de tirar uma dúvida sobre os ativos."
 ```
 
 ### Setup Local
@@ -207,6 +190,18 @@ Abra [http://localhost:3000](http://localhost:3000) no seu navegador.
 | `build` | `npm run build` | Compila o projeto para produção |
 | `start` | `npm run start` | Inicia a versão de produção produzida pelo build |
 | `lint` | `npm run lint` | Executa o lint para garantir padrões de código |
+
+---
+
+## 🛡️ Senior Master Audit Standards
+
+Para manter a integridade e segurança do portal, o código deve seguir os seguintes padrões:
+
+1.  **Nomenclatura (DB):** Todas as tabelas e colunas devem seguir o padrão `XXXX_YYYY` (ex: `INVE_HORT`, `NAME_ITEM`).
+2.  **Segurança de Variáveis:** Chaves sensíveis e URLs de produção nunca devem ser prefixadas com `NEXT_PUBLIC_` a menos que sejam estritamente necessárias no browser.
+3.  **Configurabilidade:** Links de suporte (WhatsApp) e textos de marketing devem ser gerenciados via variáveis de ambiente.
+4.  **Resiliência de Imagem:** Todos os componentes de imagem devem implementar o fallback `onError` para o placeholder padrão.
+5.  **Tipagem Estrita:** Uso de `any` deve ser evitado, servindo apenas como ponte temporária durante refactors de modelagem.
 
 ---
 

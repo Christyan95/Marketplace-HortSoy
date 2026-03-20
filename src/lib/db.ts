@@ -12,6 +12,9 @@ import pg from 'pg';
 // We use any for the pool to avoid type-mismatch conflicts between 
 // @types/pg and @prisma/adapter-pg expectations.
 const connectionString = process.env.DATABASE_URL;
+if (!connectionString) {
+  throw new Error('FATAL: DATABASE_URL is not defined in environment variables.');
+}
 const pool = new pg.Pool({ connectionString });
 const adapter = new PrismaPg(pool as any);
 
