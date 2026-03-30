@@ -104,19 +104,21 @@ export const InventoryDashboard = ({ initialInventory }: InventoryDashboardProps
       </div>
 
       {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 min-h-[400px]">
-        <AnimatePresence mode="popLayout">
-          {filteredItems.map((item) => (
-            <ProductCard
-              key={item.id}
-              product={item}
-              isInterested={interestedItem.includes(item.id)}
-              onToggleInterest={toggleInterest}
-              formatPrice={formatPrice}
-            />
-          ))}
-        </AnimatePresence>
-      </div>
+      {filteredItems.length > 0 && (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8 min-h-[400px]">
+          <AnimatePresence mode="popLayout">
+            {filteredItems.map((item) => (
+              <ProductCard
+                key={item.id}
+                product={item}
+                isInterested={interestedItem.includes(item.id)}
+                onToggleInterest={toggleInterest}
+                formatPrice={formatPrice}
+              />
+            ))}
+          </AnimatePresence>
+        </div>
+      )}
 
       {/* Empty State */}
       {filteredItems.length === 0 && (

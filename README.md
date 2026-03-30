@@ -207,8 +207,6 @@ Para manter a integridade e segurança do portal, o código deve seguir os segui
 
 ---
 
-### 📜 Licença & Propriedade
+## 👤 Autor & Arquiteto
 
-© 2026 **HortSoy Marketplace**.
-Propriedade Intelectual Privada. Todos os direitos reservados.
-Desenvolvido com excelência por [**Christyan Silva**](https://github.com/Christyan95).
+**Christyan Silva**
